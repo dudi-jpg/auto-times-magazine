@@ -58,8 +58,8 @@ const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
 
   <!-- ===== Category blocks ===== -->
   {
-    blocks.map((block) => (
-      <section class="container catblock">
+    blocks.map((block, i) => (
+      <section class:list={['container', 'catblock', i % 2 === 1 && 'catblock--tint']}>
         <div class="blockhead">
           <h2>{block.category}</h2>
           <a class="blockmore" href={catHref(block.category)}>לכל הכתבות ←</a>
@@ -184,8 +184,25 @@ const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
 
   /* ===== Category blocks ===== */
   .catblock {
+    position: relative;
     padding-top: 46px;
     padding-bottom: 10px;
+  }
+  /* subtle full-width navy tint band behind alternate blocks */
+  .catblock--tint {
+    padding-bottom: 46px;
+    margin-block: 8px;
+  }
+  .catblock--tint::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -50vw;
+    width: 100vw;
+    background: linear-gradient(180deg, #eff3f8, #e9eef5);
   }
   .blockhead {
     display: flex;

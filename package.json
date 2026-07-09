@@ -11,8 +11,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@fontsource-variable/frank-ruhl-libre": "^5.1.0",
-    "@fontsource-variable/heebo": "^5.1.0",
+    "@fontsource-variable/assistant": "^5.1.0",
+    "@fontsource-variable/rubik": "^5.1.0",
     "astro": "^5.2.5"
   }
 }

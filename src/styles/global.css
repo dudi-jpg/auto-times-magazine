@@ -1,5 +1,5 @@
-@import '@fontsource-variable/heebo';
-@import '@fontsource-variable/frank-ruhl-libre';
+@import '@fontsource-variable/assistant';
+@import '@fontsource-variable/rubik';
 
 /* ===== Design tokens (Auto Times Israel — navy + red from logo) ===== */
 :root {
@@ -19,8 +19,8 @@
   --shadow: 0 6px 24px rgba(11, 34, 64, 0.09);
   --shadow-lg: 0 24px 70px rgba(11, 34, 64, 0.2);
   --maxw: 1280px;
-  --font: 'Heebo Variable', system-ui, 'Segoe UI', Arial, sans-serif;
-  --font-display: 'Frank Ruhl Libre Variable', 'Heebo Variable', Georgia, serif;
+  --font: 'Assistant Variable', system-ui, 'Segoe UI', Arial, sans-serif;
+  --font-display: 'Rubik Variable', 'Assistant Variable', system-ui, sans-serif;
 }
 
 /* ===== Reset-ish ===== */
