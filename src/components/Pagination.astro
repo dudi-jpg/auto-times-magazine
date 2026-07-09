@@ -1,0 +1,105 @@
+---
+// עימוד עבור עמודי ארכיון וקטגוריה. base = כתובת הבסיס, למשל "/archive/" או "/category/טיפים/"
+interface Props {
+  page: {
+    currentPage: number;
+    lastPage: number;
+    url: { prev?: string; next?: string };
+  };
+  base: string;
+}
+const { page, base } = Astro.props;
+const cur = page.currentPage;
+const total = page.lastPage;
+const url = (n: number) => (n === 1 ? base : `${base}${n}/`);
+
+// חלון מספרי עמודים עם "…"
+const nums: (number | string)[] = [];
+for (let n = 1; n <= total; n++) {
+  if (n === 1 || n === total || Math.abs(n - cur) <= 1) {
+    nums.push(n);
+  } else if (nums[nums.length - 1] !== '…') {
+    nums.push('…');
+  }
+}
+---
+
+{
+  total > 1 && (
+    <nav class="pager" aria-label="ניווט בין עמודים">
+      {page.url.prev ? (
+        <a class="pg arrow" href={page.url.prev} rel="prev">→ הקודם</a>
+      ) : (
+        <span class="pg arrow disabled">→ הקודם</span>
+      )}
+
+      <div class="nums">
+        {nums.map((n) =>
+          typeof n === 'number' ? (
+            <a class:list={['pg', n === cur && 'active']} href={url(n)} aria-current={n === cur ? 'page' : undefined}>
+              {n}
+            </a>
+          ) : (
+            <span class="gap">…</span>
+          )
+        )}
+      </div>
+
+      {page.url.next ? (
+        <a class="pg arrow" href={page.url.next} rel="next">הבא ←</a>
+      ) : (
+        <span class="pg arrow disabled">הבא ←</span>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+  }
+  .nums {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pg {
+    display: inline-grid;
+    place-items: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    background: var(--paper);
+    transition: all 0.15s ease;
+  }
+  .pg:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .pg.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .pg.arrow {
+    font-size: 0.9rem;
+  }
+  .pg.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .gap {
+    color: var(--muted);
+    padding: 0 2px;
+  }
+</style>

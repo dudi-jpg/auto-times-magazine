@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#15161b"/>
+  <circle cx="32" cy="31" r="19" fill="none" stroke="#ffffff" stroke-width="2.4"/>
+  <path d="M18 41 A19 19 0 0 1 24 18" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" opacity="0.35"/>
+  <path d="M46 41 A19 19 0 0 0 44 21" fill="none" stroke="#e01e2b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="32" y1="31" x2="43" y2="37" stroke="#e01e2b" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="32" cy="31" r="3" fill="#ffffff"/>
+  <text x="32" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#ffffff">AT</text>
+</svg>

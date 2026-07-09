@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { CATEGORIES, PAGE_SIZE } from '../../../consts';
+
+export async function getStaticPaths({ paginate }) {
+  const all = await getCollection('articles');
+  return CATEGORIES.flatMap((category) => {
+    const items = all
+      .filter((a) => a.data.category === category)
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    return paginate(items, { params: { category }, pageSize: PAGE_SIZE });
+  });
+}
+
+const { category } = Astro.params;
+const { page } = Astro.props;
+---
+
+<BaseLayout title={category} description={`כל הכתבות בקטגוריית ${category} במגזין Auto Times Israel`}>
+  <section class="container section">
+    <header class="cat-head">
+      <span class="kicker">קטגוריה</span>
+      <h1>{category}</h1>
+      <p class="muted">{page.total} כתבות</p>
+    </header>
+
+    <div class="cat-list">
+      {page.data.map((a) => <ArticleCard article={a} variant="wide" />)}
+    </div>
+
+    <Pagination page={page} base={`/category/${encodeURIComponent(category)}/`} />
+  </section>
+</BaseLayout>
+
+<style>
+  .cat-head {
+    margin-bottom: 30px;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .kicker {
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+  }
+  .cat-head h1 {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    margin: 6px 0 4px;
+  }
+  .cat-list {
+    display: grid;
+    gap: 22px;
+  }
+</style>

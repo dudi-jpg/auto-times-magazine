@@ -1,0 +1,176 @@
+---
+import { CATEGORIES } from '../consts';
+import Logo from './Logo.astro';
+
+const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
+const today = new Intl.DateTimeFormat('he-IL', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(new Date());
+---
+
+<header class="site-header">
+  <!-- Masthead strip -->
+  <div class="masthead">
+    <div class="container masthead-inner">
+      <span class="date">{today}</span>
+      <span class="tag">מגזין הרכב של ישראל</span>
+    </div>
+  </div>
+
+  <!-- Main bar -->
+  <div class="bar-wrap">
+    <div class="container bar">
+      <a href="/" class="brand" aria-label="Auto Times Israel — עמוד הבית">
+        <Logo />
+      </a>
+
+      <nav class="nav" aria-label="ניווט ראשי">
+        <a href="/">בית</a>
+        {CATEGORIES.map((c) => <a href={catHref(c)}>{c}</a>)}
+      </nav>
+
+      <button class="menu-toggle" aria-label="פתח תפריט" id="menuToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav-mobile" id="mobileNav" aria-label="ניווט למובייל">
+    <a href="/">בית</a>
+    {CATEGORIES.map((c) => <a href={catHref(c)}>{c}</a>)}
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+  }
+
+  /* Masthead */
+  .masthead {
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .masthead-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 34px;
+    font-size: 0.78rem;
+  }
+  .masthead .date {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .masthead .tag {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* Main bar */
+  .bar-wrap {
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 1px 0 rgba(20, 22, 30, 0.02);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    height: 82px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .nav a {
+    position: relative;
+    padding-block: 6px;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+  }
+  .nav a:hover {
+    color: var(--accent);
+  }
+  .nav a::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.18s ease;
+  }
+  .nav a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    padding: 8px 20px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .nav-mobile a {
+    padding: 13px 4px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .nav-mobile.open {
+    display: flex;
+  }
+
+  @media (max-width: 860px) {
+    .nav {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+    .bar {
+      height: 70px;
+    }
+    .masthead .date {
+      display: none;
+    }
+    .masthead-inner {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mobileNav');
+  toggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+</script>

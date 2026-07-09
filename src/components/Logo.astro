@@ -1,0 +1,90 @@
+---
+interface Props {
+  size?: number;
+  light?: boolean; // light=true for use on dark backgrounds (footer)
+}
+const { size = 50, light = false } = Astro.props;
+---
+
+<span class:list={['logo', light && 'logo--light']}>
+  <svg
+    class="logo-mark"
+    width={size}
+    height={size}
+    viewBox="0 0 64 64"
+    role="img"
+    aria-label="Auto Times Israel"
+  >
+    <circle cx="32" cy="32" r="30.5" stroke="currentColor" stroke-width="2" fill="none" />
+    <line x1="8.6" y1="45.5" x2="13.8" y2="42.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    <line x1="5.0" y1="32.0" x2="9.0" y2="32.0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    <line x1="8.6" y1="18.5" x2="13.8" y2="21.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    <line x1="18.5" y1="8.6" x2="20.5" y2="12.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    <line x1="32.0" y1="5.0" x2="32.0" y2="11.0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    <line x1="45.5" y1="8.6" x2="43.5" y2="12.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    <line x1="55.4" y1="18.5" x2="50.2" y2="21.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    <line x1="59.0" y1="32.0" x2="55.0" y2="32.0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    <line x1="55.4" y1="45.5" x2="50.2" y2="42.5" stroke="#e01e2b" stroke-width="2.4" stroke-linecap="round" />
+    <line x1="45.5" y1="55.4" x2="43.5" y2="51.9" stroke="#e01e2b" stroke-width="1.6" stroke-linecap="round" />
+    <line x1="32.0" y1="59.0" x2="32.0" y2="53.0" stroke="#e01e2b" stroke-width="2.4" stroke-linecap="round" />
+    <line x1="32" y1="32" x2="45.0" y2="39.5" stroke="#e01e2b" stroke-width="2.6" stroke-linecap="round" />
+    <circle cx="32" cy="32" r="3.4" fill="currentColor" />
+    <text
+      x="32"
+      y="46"
+      text-anchor="middle"
+      font-family="'Heebo Variable', Arial, sans-serif"
+      font-size="11.5"
+      font-weight="800"
+      letter-spacing="0.5"
+      fill="currentColor">AT</text>
+  </svg>
+  <span class="logo-word" dir="ltr">
+    <span class="logo-name">AUTO <em>TIMES</em></span>
+    <span class="logo-sub">ISRAEL</span>
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    color: var(--ink);
+  }
+  .logo-mark {
+    flex: none;
+  }
+  .logo-word {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    align-items: flex-start;
+  }
+  .logo-name {
+    font-weight: 800;
+    font-size: 1.42rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .logo-name em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .logo-sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.44em;
+    color: var(--muted);
+    margin-top: 6px;
+    padding-inline-start: 2px;
+  }
+  .logo--light {
+    color: #fff;
+  }
+  .logo--light .logo-name {
+    color: #fff;
+  }
+  .logo--light .logo-sub {
+    color: rgba(255, 255, 255, 0.55);
+  }
+</style>

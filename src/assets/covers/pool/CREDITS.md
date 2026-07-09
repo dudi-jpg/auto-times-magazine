@@ -1,0 +1,40 @@
+# Image pool credits (Wikimedia Commons, free licenses)
+
+- **pool/ev-01.jpg** — "Hyundai Ioniq 6 1X7A7258.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_6_1X7A7258.jpg
+- **pool/ev-02.jpg** — "Hyundai Ioniq 6 1X7A7083.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_6_1X7A7083.jpg
+- **pool/ev-03.jpg** — "Hyundai Ioniq 6 1X7A7260.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_6_1X7A7260.jpg
+- **pool/ev-04.jpg** — "Hyundai Ioniq 6 Auto Zuerich 2023 1X7A0904.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_6_Auto_Zuerich_2023_1X7A0904.jpg
+- **pool/ev-05.jpg** — "Hyundai Ioniq 5 Robotaxi IAA 2021 1X7A0002.jpg" by Alexander Migl (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_5_Robotaxi_IAA_2021_1X7A0002.jpg
+- **pool/ev-06.jpg** — "2024 Hyundai ioniq 6 Ultimate.jpg" by Calreyn88 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:2024_Hyundai_ioniq_6_Ultimate.jpg
+- **pool/sedan-01.jpg** — "Toyota Corolla (E180) sedan facelift 1X7A0306.jpg" by Alexander Migl (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Toyota_Corolla_(E180)_sedan_facelift_1X7A0306.jpg
+- **pool/sedan-02.jpg** — "2018 Toyota Corolla (ZRE172R) Ascent sedan (2018-11-02) 02.jpg" by EurovisionNim (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:2018_Toyota_Corolla_(ZRE172R)_Ascent_sedan_(2018-11-02)_02.jpg
+- **pool/sedan-03.jpg** — "Toyota Corolla Hybrid Sedan, GIMS 2019, Le Grand-Saconnex (GIMS1338).jpg" by Matti Blume (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Toyota_Corolla_Hybrid_Sedan,_GIMS_2019,_Le_Grand-Saconnex_(GIMS1338).jpg
+- **pool/sedan-04.jpg** — "1987-1989 Toyota Corolla GT.jpg" by TTTNIS (CC0). https://commons.wikimedia.org/wiki/File:1987-1989_Toyota_Corolla_GT.jpg
+- **pool/sedan-05.jpg** — "1987-1989 Toyota Corolla GT rear.jpg" by TTTNIS (CC0). https://commons.wikimedia.org/wiki/File:1987-1989_Toyota_Corolla_GT_rear.jpg
+- **pool/suv-01.jpg** — "Toyota RAV4 (XA10) IMG 1260.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Toyota_RAV4_(XA10)_IMG_1260.jpg
+- **pool/suv-02.jpg** — "(USA-New York) NYC Medallion Cab Toyota RAV4 NY-Taxi-Y202490C 2024-06-15.jpg" by S5A-0043 (CC BY 4.0). https://commons.wikimedia.org/wiki/File:(USA-New_York)_NYC_Medallion_Cab_Toyota_RAV4_NY-Taxi-Y202490C_2024-06-15.jpg
+- **pool/suv-03.jpg** — "Toyota RAV4 Hybrid, GIMS 2019, Le Grand-Saconnex (GIMS0518).jpg" by Matti Blume (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Toyota_RAV4_Hybrid,_GIMS_2019,_Le_Grand-Saconnex_(GIMS0518).jpg
+- **pool/suv-04.jpg** — "Toyota RAV4 Plug-in Hybrid GR Sport IMG 9891.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Toyota_RAV4_Plug-in_Hybrid_GR_Sport_IMG_9891.jpg
+- **pool/suv-05.jpg** — "Toyota RAV4 Plug-in Hybrid GR Sport IMG 9896.jpg" by Alexander-93 (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Toyota_RAV4_Plug-in_Hybrid_GR_Sport_IMG_9896.jpg
+- **pool/sports-01.jpg** — "Porsche 911 Carrera RSR, Bj. 1974 (2011-08-13 Sp).JPG" by Lothar Spurzem (CC BY-SA 2.0 de). https://commons.wikimedia.org/wiki/File:Porsche_911_Carrera_RSR,_Bj._1974_(2011-08-13_Sp).JPG
+- **pool/sports-02.jpg** — "Porsche 911 No 1000000, 70 Years Porsche Sports Car, Berlin (1X7A3888).jpg" by Matti Blume (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Porsche_911_No_1000000,_70_Years_Porsche_Sports_Car,_Berlin_(1X7A3888).jpg
+- **pool/sports-03.jpg** — "Porsche 911, 70 Years Porsche Sports Car, Berlin (1X7A3904).jpg" by Matti Blume (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Porsche_911,_70_Years_Porsche_Sports_Car,_Berlin_(1X7A3904).jpg
+- **pool/charging-01.jpg** — "EV charging point at LIDL, Harrogate Road, Eccleshill - geograph.org.uk - 7574925.jpg" by Stephen Craven (CC BY-SA 2.0). https://commons.wikimedia.org/wiki/File:EV_charging_point_at_LIDL,_Harrogate_Road,_Eccleshill_-_geograph.org.uk_-_7574925.jpg
+- **pool/charging-02.jpg** — "EV charging point, Kirkstall Road - geograph.org.uk - 7726223.jpg" by Stephen Craven (CC BY-SA 2.0). https://commons.wikimedia.org/wiki/File:EV_charging_point,_Kirkstall_Road_-_geograph.org.uk_-_7726223.jpg
+- **pool/charging-03.jpg** — "ChargePoint EV charging station Greenfield Skate Park 13-25 Chapman Street Greenfield MA September 2024.jpg" by Artaxerxes (CC BY 4.0). https://commons.wikimedia.org/wiki/File:ChargePoint_EV_charging_station_Greenfield_Skate_Park_13-25_Chapman_Street_Greenfield_MA_September_2024.jpg
+- **pool/highway-01.jpg** — "Highway 6 Israel tunnel.jpg" by דוד שי (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Highway_6_Israel_tunnel.jpg
+- **pool/highway-02.jpg** — "Highway 6, May 2024 09.jpg" by Chenspec (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Highway_6,_May_2024_09.jpg
+- **pool/highway-03.jpg** — "Highway 6, May 2024 07.jpg" by Chenspec (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Highway_6,_May_2024_07.jpg
+- **pool/highway-04.jpg** — "Highway 6, May 2024 02.jpg" by Chenspec (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Highway_6,_May_2024_02.jpg
+- **pool/interior-01.jpg** — "Smartphone mounted on car dashboard during a drive in a modern vehicle with a focus on navigation use.jpg" by Shixart1985 (CC BY 2.0). https://commons.wikimedia.org/wiki/File:Smartphone_mounted_on_car_dashboard_during_a_drive_in_a_modern_vehicle_with_a_focus_on_navigation_use.jpg
+- **pool/interior-02.jpg** — "2022-10-31 Dashboard in Mtatsminda Funicular car.jpg" by Yuri Samoylov (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:2022-10-31_Dashboard_in_Mtatsminda_Funicular_car.jpg
+- **pool/interior-03.jpg** — "2022-10-31 Dashboard display in Mtatsminda Funicular car.jpg" by Yuri Samoylov (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:2022-10-31_Dashboard_display_in_Mtatsminda_Funicular_car.jpg
+- **pool/dealership-01.jpg** — "Car Source Kenosha Burned out car lot.jpg" by Lightburst (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Car_Source_Kenosha_Burned_out_car_lot.jpg
+- **pool/dealership-02.jpg** — "Rotting Car Lot Schertz TX 04.jpg" by Jonmallard (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Rotting_Car_Lot_Schertz_TX_04.jpg
+- **pool/garage-01.jpg** — "Mechanic works on car engine performing routine maintenance and inspections on vehicle parts.jpg" by Shixart1985 (CC BY 2.0). https://commons.wikimedia.org/wiki/File:Mechanic_works_on_car_engine_performing_routine_maintenance_and_inspections_on_vehicle_parts.jpg
+- **pool/garage-02.jpg** — "Tule Lake Relocation Center, Newell, California. Frank K. Mizuni, former garage owner and mechanic, . . . - NARA - 536729.jpg" by Francis Stewart (Public domain). https://commons.wikimedia.org/wiki/File:Tule_Lake_Relocation_Center,_Newell,_California._Frank_K._Mizuni,_former_garage_owner_and_mechanic,_._._._-_NARA_-_536729.jpg
+- **pool/garage-03.jpg** — "Une allée de garage mécanicien.jpg" by Babacar Dioum (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Une_all%C3%A9e_de_garage_m%C3%A9canicien.jpg
+- **pool/garage-04.jpg** — "Changing car tire 20170513 01.jpg" by Santeri Viinamäki (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:Changing_car_tire_20170513_01.jpg
+- **pool/rain-01.jpg** — "Exeter Waitrose car park in the rain - geograph.org.uk - 5988577.jpg" by David Smith (CC BY-SA 2.0). https://commons.wikimedia.org/wiki/File:Exeter_Waitrose_car_park_in_the_rain_-_geograph.org.uk_-_5988577.jpg
+- **pool/rain-02.jpg** — "Sainsbury's Car Park in the Rain - geograph.org.uk - 5913778.jpg" by Des Blenkinsopp (CC BY-SA 2.0). https://commons.wikimedia.org/wiki/File:Sainsbury%27s_Car_Park_in_the_Rain_-_geograph.org.uk_-_5913778.jpg
+- **pool/rain-03.jpg** — "TA2 77 Sheldon Creed in heavy rain 2017 Road America.jpg" by Royalbroil (CC BY-SA 4.0). https://commons.wikimedia.org/wiki/File:TA2_77_Sheldon_Creed_in_heavy_rain_2017_Road_America.jpg

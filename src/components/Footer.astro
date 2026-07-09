@@ -1,0 +1,83 @@
+---
+import { SITE_TITLE, SITE_TAGLINE, CATEGORIES } from '../consts';
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
+---
+
+<footer class="site-footer">
+  <div class="container grid">
+    <div>
+      <Logo light={true} />
+      <p class="muted ftag">{SITE_TAGLINE}</p>
+    </div>
+    <div>
+      <h4>קטגוריות</h4>
+      <ul>
+        {CATEGORIES.map((c) => <li><a href={catHref(c)}>{c}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h4>מידע</h4>
+      <ul>
+        <li><a href="/">עמוד הבית</a></li>
+        <li><a href="/archive/">כל הכתבות</a></li>
+        <li><a href="/about/">אודות</a></li>
+        <li><a href="mailto:info@autotimesisrael.com">צור קשר</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container bottom">
+    <span>© {year} {SITE_TITLE} — כל הזכויות שמורות</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: #cfd2da;
+    margin-top: 40px;
+    padding-top: 48px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 34px;
+    padding-bottom: 34px;
+  }
+  .ftag {
+    margin-top: 14px;
+    max-width: 34ch;
+  }
+  h4 {
+    color: #fff;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 9px;
+  }
+  ul a {
+    color: #cfd2da;
+    transition: color 0.15s ease;
+  }
+  ul a:hover {
+    color: var(--accent);
+  }
+  .bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-block: 20px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  }
+</style>

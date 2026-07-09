@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<BaseLayout title="אודות" description={`אודות ${SITE_TITLE}`}>
+  <section class="container section" style="max-width: 760px;">
+    <span class="kicker">אודות</span>
+    <h1>{SITE_TITLE}</h1>
+    <p style="font-size:1.15rem; line-height:1.85; color: var(--ink-soft);">
+      Auto Times Israel הוא מגזין הרכב הדיגיטלי בעברית — מבחני דרך מעמיקים, חדשות
+      מעולם הרכב, סקירות מכוניות חשמליות וטיפים פרקטיים לנהג הישראלי. אנחנו כותבים
+      בגובה העיניים, בלי ז'רגון מיותר, כדי לעזור לך לבחור, לנהוג וליהנות מהרכב שלך.
+    </p>
+    <p style="font-size:1.1rem; line-height:1.85;">
+      רוצה לפרסם אצלנו או להציע נושא לכתבה?
+      <a href="mailto:info@autotimesisrael.com" style="color:var(--accent); font-weight:700;">info@autotimesisrael.com</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .kicker {
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    margin: 6px 0 18px;
+  }
+</style>
