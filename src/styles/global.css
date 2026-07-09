@@ -1,22 +1,26 @@
 @import '@fontsource-variable/heebo';
+@import '@fontsource-variable/frank-ruhl-libre';
 
-/* ===== Design tokens ===== */
+/* ===== Design tokens (Auto Times Israel — navy + red from logo) ===== */
 :root {
   --paper: #ffffff;
-  --surface: #f4f5f7;
-  --surface-2: #eaecef;
-  --ink: #15161b;
-  --ink-soft: #3a3d47;
-  --muted: #71757f;
-  --line: #e2e4e9;
-  --accent: #e01e2b; /* racing red */
-  --accent-ink: #b0121d;
-  --radius: 14px;
-  --radius-sm: 9px;
-  --shadow: 0 6px 24px rgba(20, 22, 30, 0.08);
-  --shadow-lg: 0 24px 70px rgba(20, 22, 30, 0.22);
+  --surface: #f5f6f8;
+  --surface-2: #e9ecf1;
+  --navy: #0b2240; /* logo navy */
+  --navy-soft: #16335c;
+  --ink: #0b2240; /* headings use navy */
+  --ink-soft: #3c4657;
+  --muted: #737d8c;
+  --line: #e3e6ec;
+  --accent: #ef364c; /* logo red */
+  --accent-ink: #cf1f36;
+  --radius: 10px;
+  --radius-sm: 7px;
+  --shadow: 0 6px 24px rgba(11, 34, 64, 0.09);
+  --shadow-lg: 0 24px 70px rgba(11, 34, 64, 0.2);
   --maxw: 1280px;
   --font: 'Heebo Variable', system-ui, 'Segoe UI', Arial, sans-serif;
+  --font-display: 'Frank Ruhl Libre Variable', 'Heebo Variable', Georgia, serif;
 }
 
 /* ===== Reset-ish ===== */
@@ -54,10 +58,12 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: var(--font-display);
   line-height: 1.2;
   margin: 0 0 0.4em;
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
+  color: var(--ink);
 }
 
 p {

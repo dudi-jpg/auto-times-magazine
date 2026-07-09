@@ -28,7 +28,7 @@ const { page } = Astro.props;
     </header>
 
     <div class="cat-list">
-      {page.data.map((a) => <ArticleCard article={a} variant="wide" />)}
+      {page.data.map((a) => <ArticleCard article={a} />)}
     </div>
 
     <Pagination page={page} base={`/category/${encodeURIComponent(category)}/`} />
@@ -53,6 +53,17 @@ const { page } = Astro.props;
   }
   .cat-list {
     display: grid;
-    gap: 22px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 28px;
+  }
+  @media (max-width: 900px) {
+    .cat-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .cat-list {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

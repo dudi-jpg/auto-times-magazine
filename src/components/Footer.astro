@@ -1,14 +1,15 @@
 ---
-import { SITE_TITLE, SITE_TAGLINE, CATEGORIES } from '../consts';
-import Logo from './Logo.astro';
+import { Image } from 'astro:assets';
+import { SITE_TAGLINE, CATEGORIES } from '../consts';
+import logoNavy from '../assets/logo-navy.jpg';
 const year = new Date().getFullYear();
 const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
 ---
 
 <footer class="site-footer">
   <div class="container grid">
-    <div>
-      <Logo light={true} />
+    <div class="fbrand">
+      <Image src={logoNavy} alt="אוטו טיימס ישראל" widths={[300, 500]} sizes="340px" />
       <p class="muted ftag">{SITE_TAGLINE}</p>
     </div>
     <div>
@@ -28,28 +29,36 @@ const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
     </div>
   </div>
   <div class="container bottom">
-    <span>© {year} {SITE_TITLE} — כל הזכויות שמורות</span>
+    <span>© {year} אוטו טיימס ישראל — כל הזכויות שמורות</span>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    background: var(--ink);
-    color: #cfd2da;
-    margin-top: 40px;
-    padding-top: 48px;
+    background: var(--navy);
+    color: #c7cfdb;
+    margin-top: 54px;
+    padding-top: 50px;
   }
   .grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr 1fr;
-    gap: 34px;
-    padding-bottom: 34px;
+    gap: 40px;
+    padding-bottom: 36px;
+  }
+  .fbrand :global(img) {
+    height: 92px;
+    width: auto;
+    border-radius: 8px;
   }
   .ftag {
     margin-top: 14px;
-    max-width: 34ch;
+    max-width: 40ch;
+    color: #8f9bad;
+    font-family: var(--font);
   }
   h4 {
+    font-family: var(--font);
     color: #fff;
     font-size: 0.95rem;
     margin-bottom: 14px;
@@ -59,10 +68,11 @@ const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 9px;
+    gap: 10px;
+    font-family: var(--font);
   }
   ul a {
-    color: #cfd2da;
+    color: #c7cfdb;
     transition: color 0.15s ease;
   }
   ul a:hover {
@@ -71,13 +81,14 @@ const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
   .bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-block: 20px;
+    font-family: var(--font);
     font-size: 0.85rem;
-    color: var(--muted);
+    color: #8f9bad;
   }
   @media (max-width: 700px) {
     .grid {
       grid-template-columns: 1fr;
-      gap: 26px;
+      gap: 28px;
     }
   }
 </style>

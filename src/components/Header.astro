@@ -1,6 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { CATEGORIES } from '../consts';
-import Logo from './Logo.astro';
+import logoLight from '../assets/logo-light.jpg';
 
 const catHref = (c: string) => `/category/${encodeURIComponent(c)}/`;
 const today = new Intl.DateTimeFormat('he-IL', {
@@ -12,113 +13,132 @@ const today = new Intl.DateTimeFormat('he-IL', {
 ---
 
 <header class="site-header">
-  <!-- Masthead strip -->
-  <div class="masthead">
-    <div class="container masthead-inner">
+  <!-- Top utility bar -->
+  <div class="topbar">
+    <div class="container topbar-in">
       <span class="date">{today}</span>
-      <span class="tag">מגזין הרכב של ישראל</span>
+      <span class="tlinks">
+        <a href="/archive/">כל הכתבות</a>
+        <a href="/about/">אודות</a>
+        <a href="mailto:info@autotimesisrael.com">צור קשר</a>
+      </span>
     </div>
   </div>
 
-  <!-- Main bar -->
-  <div class="bar-wrap">
-    <div class="container bar">
-      <a href="/" class="brand" aria-label="Auto Times Israel — עמוד הבית">
-        <Logo />
-      </a>
+  <!-- Masthead: centered logo -->
+  <div class="masthead">
+    <a href="/" class="logo-link" aria-label="אוטו טיימס ישראל — עמוד הבית">
+      <Image src={logoLight} alt="אוטו טיימס ישראל" widths={[320, 520]} sizes="440px" />
+    </a>
+  </div>
 
-      <nav class="nav" aria-label="ניווט ראשי">
-        <a href="/">בית</a>
-        {CATEGORIES.map((c) => <a href={catHref(c)}>{c}</a>)}
-      </nav>
-
-      <button class="menu-toggle" aria-label="פתח תפריט" id="menuToggle">
+  <!-- Sticky nav bar -->
+  <nav class="mainnav" aria-label="ניווט ראשי">
+    <div class="container nav-in">
+      <button class="menu-toggle" id="menuToggle" aria-label="תפריט">
         <span></span><span></span><span></span>
       </button>
+      <div class="nav-links" id="navLinks">
+        <a href="/">בית</a>
+        {CATEGORIES.map((c) => <a href={catHref(c)}>{c}</a>)}
+      </div>
     </div>
-  </div>
-
-  <nav class="nav-mobile" id="mobileNav" aria-label="ניווט למובייל">
-    <a href="/">בית</a>
-    {CATEGORIES.map((c) => <a href={catHref(c)}>{c}</a>)}
   </nav>
 </header>
 
 <style>
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
     background: var(--paper);
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--navy);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.78rem;
+  }
+  .topbar-in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 36px;
+  }
+  .topbar .date {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .tlinks {
+    display: flex;
+    gap: 18px;
+  }
+  .tlinks a {
+    color: rgba(255, 255, 255, 0.75);
+    transition: color 0.15s ease;
+  }
+  .tlinks a:hover {
+    color: #fff;
   }
 
   /* Masthead */
   .masthead {
-    background: var(--ink);
-    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    padding: 22px 20px 18px;
   }
-  .masthead-inner {
+  .logo-link :global(img) {
+    height: 88px;
+    width: auto;
+    display: block;
+  }
+
+  /* Nav bar */
+  .mainnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 3px solid var(--navy);
+  }
+  .nav-in {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 34px;
-    font-size: 0.78rem;
+    justify-content: center;
+    min-height: 52px;
   }
-  .masthead .date {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  .masthead .tag {
-    color: var(--accent);
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 34px;
     font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-
-  /* Main bar */
-  .bar-wrap {
-    border-bottom: 1px solid var(--line);
-    box-shadow: 0 1px 0 rgba(20, 22, 30, 0.02);
-  }
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    height: 82px;
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    font-weight: 600;
     font-size: 1rem;
   }
-  .nav a {
+  .nav-links a {
     position: relative;
-    padding-block: 6px;
-    color: var(--ink-soft);
+    padding: 15px 0;
+    color: var(--navy);
     transition: color 0.15s ease;
   }
-  .nav a:hover {
+  .nav-links a:hover {
     color: var(--accent);
   }
-  .nav a::after {
+  .nav-links a::after {
     content: '';
     position: absolute;
     inset-inline: 0;
-    bottom: -2px;
-    height: 2px;
+    bottom: -3px;
+    height: 3px;
     background: var(--accent);
     transform: scaleX(0);
-    transform-origin: center;
     transition: transform 0.18s ease;
   }
-  .nav a:hover::after {
+  .nav-links a:hover::after {
     transform: scaleX(1);
   }
 
   .menu-toggle {
     display: none;
+    position: absolute;
+    inset-inline-start: 20px;
     flex-direction: column;
     gap: 5px;
     background: none;
@@ -129,48 +149,49 @@ const today = new Intl.DateTimeFormat('he-IL', {
   .menu-toggle span {
     width: 24px;
     height: 2px;
-    background: var(--ink);
+    background: var(--navy);
     border-radius: 2px;
   }
 
-  .nav-mobile {
-    display: none;
-    flex-direction: column;
-    padding: 8px 20px 16px;
-    border-bottom: 1px solid var(--line);
-    background: var(--paper);
-  }
-  .nav-mobile a {
-    padding: 13px 4px;
-    font-weight: 600;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink-soft);
-  }
-  .nav-mobile.open {
-    display: flex;
-  }
-
-  @media (max-width: 860px) {
-    .nav {
+  @media (max-width: 780px) {
+    .logo-link :global(img) {
+      height: 62px;
+    }
+    .topbar .date {
       display: none;
+    }
+    .topbar-in {
+      justify-content: center;
+    }
+    .nav-in {
+      justify-content: flex-start;
     }
     .menu-toggle {
       display: flex;
     }
-    .bar {
-      height: 70px;
-    }
-    .masthead .date {
+    .nav-links {
       display: none;
+      position: absolute;
+      top: 100%;
+      inset-inline: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      padding: 6px 20px 14px;
     }
-    .masthead-inner {
-      justify-content: center;
+    .nav-links.open {
+      display: flex;
+    }
+    .nav-links a {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
     }
   }
 </style>
 
 <script>
-  const toggle = document.getElementById('menuToggle');
-  const nav = document.getElementById('mobileNav');
-  toggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+  const t = document.getElementById('menuToggle');
+  const n = document.getElementById('navLinks');
+  t?.addEventListener('click', () => n?.classList.toggle('open'));
 </script>
