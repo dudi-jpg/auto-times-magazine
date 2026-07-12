@@ -1,0 +1,55 @@
+name: Daily articles
+
+on:
+  schedule:
+    # 05:00 UTC daily ≈ 08:00 Israel (DST) / 07:00 (winter)
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'How many articles to generate'
+        required: false
+        default: '5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-articles
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate articles
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ARTICLES_PER_RUN: ${{ github.event.inputs.count || '5' }}
+          # ARTICLE_MODEL: claude-opus-4-8   # override here if desired
+        run: npm run generate:daily
+
+      - name: Commit & push new articles
+        run: |
+          git config user.name "Auto Times Bot"
+          git config user.email "info@autotimesisrael.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "Daily articles — $(date -u +%Y-%m-%d)"
+            git push
+            echo "Pushed new articles."
+          else
+            echo "No changes to commit."
+          fi

@@ -8,11 +8,17 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate:daily": "node scripts/generate-daily.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/assistant": "^5.1.0",
     "@fontsource-variable/rubik": "^5.1.0",
     "astro": "^5.2.5"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.68.0"
   }
 }

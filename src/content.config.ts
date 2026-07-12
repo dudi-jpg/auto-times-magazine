@@ -14,6 +14,14 @@ const articles = defineCollection({
       cover: image().optional(), // תמונת נושא (בתיקיית src/content/articles או ../../assets)
       coverAlt: z.string().default(''),
       featured: z.boolean().default(false), // האם להציג ככתבה מרכזית בעמוד הבית
+      updatedDate: z.coerce.date().optional(), // תאריך עדכון אחרון (dateModified ל-SEO)
+      // ---- שדות SEO / GEO (אופציונליים) ----
+      focusKeyword: z.string().optional(), // מילת מפתח מרכזית
+      keywords: z.array(z.string()).default([]), // מילות מפתח ל-meta keywords ול-schema
+      keyTakeaways: z.array(z.string()).default([]), // תקציר נקודות (TL;DR) — מצוין ל-GEO
+      faq: z
+        .array(z.object({ question: z.string(), answer: z.string() }))
+        .default([]), // שאלות ותשובות — נכנס גם ל-FAQ schema
     }),
 });
 

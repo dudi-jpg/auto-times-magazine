@@ -18,6 +18,12 @@ Hebrew (RTL) car-magazine website. Static content site built with **Astro 5**.
 - `src/content/articles/*.md` — the articles.
 - `src/assets/covers/` — cover images referenced from frontmatter as `../../assets/covers/x.jpg`.
 
+## Daily automation (5 articles/day)
+- `scripts/generate-daily.mjs` — calls the Anthropic API (`@anthropic-ai/sdk`, model `claude-opus-4-8`, adaptive thinking, structured outputs) to write N professional Hebrew articles (SEO + GEO: focus keyword, meta desc, key takeaways/TL;DR, comparison table, FAQ). Fetches real images from Wikimedia Commons with a fallback to the local `src/assets/covers/pool/`.
+- Runs via GitHub Actions cron `.github/workflows/daily-articles.yml` (05:00 UTC). Needs repo secret **ANTHROPIC_API_KEY**. Each run commits + pushes → Cloudflare auto-deploys.
+- Run manually: `ANTHROPIC_API_KEY=... ARTICLES_PER_RUN=2 npm run generate:daily`.
+- SEO/GEO site-wide: `@astrojs/sitemap`, `public/robots.txt` (allows AI crawlers), `/rss.xml`, JSON-LD (NewsArticle + FAQPage + Breadcrumb + Organization + WebSite) in the article layout + BaseLayout.
+
 ## Conventions
 - Language: Hebrew, RTL. Address the user in Hebrew masculine (לשון זכר).
 - Article filename = URL slug. `featured: true` promotes an article to the homepage hero.

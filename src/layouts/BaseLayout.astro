@@ -8,16 +8,39 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  ogType?: string;
+  jsonLd?: Record<string, unknown>[]; // מבני schema.org נוספים לעמוד
 }
 
 const {
   title,
   description = SITE_DESCRIPTION,
   image = '/og-default.jpg',
+  ogType = 'website',
+  jsonLd = [],
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteURL = Astro.site?.toString() ?? 'https://autotimesisrael.com/';
+
+// Schema.org קבוע לכל האתר: ארגון + אתר עם חיפוש
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
+  name: SITE_TITLE,
+  url: siteURL,
+  logo: new URL('/og-default.jpg', siteURL).toString(),
+  description: SITE_DESCRIPTION,
+};
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_TITLE,
+  url: siteURL,
+  inLanguage: 'he-IL',
+};
+const allSchemas = [orgSchema, siteSchema, ...jsonLd];
 ---
 
 <!doctype html>
@@ -31,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="he_IL" />
     <meta property="og:site_name" content={SITE_TITLE} />
     <meta property="og:title" content={pageTitle} />
@@ -39,6 +62,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={new URL(image, Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('/rss.xml', Astro.site)} />
+
+    <!-- Schema.org / JSON-LD (SEO + GEO) -->
+    {allSchemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
     <Header />

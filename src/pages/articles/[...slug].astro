@@ -15,16 +15,67 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { title, description, category, author, pubDate, cover, coverAlt } = article.data;
-const { Content } = await render(article);
+const { updatedDate, keywords, keyTakeaways, faq } = article.data;
+const { Content, headings } = await render(article);
 
 // כתבות קשורות מאותה קטגוריה
 const related = (await getCollection('articles'))
   .filter((a) => a.id !== article.id && a.data.category === category)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+// זמן קריאה משוער (עברית ~200 מילים/דקה)
+const words = article.body?.split(/\s+/).length ?? 0;
+const readingMinutes = Math.max(1, Math.round(words / 200));
+
+const site = Astro.site?.toString() ?? 'https://autotimesisrael.com/';
+const url = new URL(`/articles/${article.id}/`, site).toString();
+const imageUrl = cover ? new URL(cover.src, site).toString() : new URL('/og-default.jpg', site).toString();
+
+// ---- JSON-LD: Article + Breadcrumb + FAQPage ----
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: title,
+  description,
+  image: [imageUrl],
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: [{ '@type': 'Person', name: author }],
+  publisher: {
+    '@type': 'NewsMediaOrganization',
+    name: 'Auto Times Israel',
+    logo: { '@type': 'ImageObject', url: new URL('/og-default.jpg', site).toString() },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  articleSection: category,
+  inLanguage: 'he-IL',
+  ...(keywords.length ? { keywords: keywords.join(', ') } : {}),
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'בית', item: site },
+    { '@type': 'ListItem', position: 2, name: category, item: new URL(`/category/${encodeURIComponent(category)}/`, site).toString() },
+    { '@type': 'ListItem', position: 3, name: title, item: url },
+  ],
+};
+const faqSchema = faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    }
+  : null;
+const jsonLd = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
 ---
 
-<BaseLayout title={title} description={description} image={cover?.src}>
+<BaseLayout title={title} description={description} image={cover?.src} ogType="article" jsonLd={jsonLd}>
   <article class="post">
     <div class="container narrow">
       <a href={`/category/${encodeURIComponent(category)}/`} class="pill">{category}</a>
@@ -34,8 +85,23 @@ const related = (await getCollection('articles'))
         <span>מאת {author}</span>
         <span class="dot"></span>
         <FormattedDate date={pubDate} />
+        <span class="dot"></span>
+        <span>{readingMinutes} דקות קריאה</span>
       </div>
     </div>
+
+    {
+      keyTakeaways.length > 0 && (
+        <div class="container narrow">
+          <aside class="tldr" aria-label="עיקרי הדברים">
+            <h2>בקצרה</h2>
+            <ul>
+              {keyTakeaways.map((k) => <li>{k}</li>)}
+            </ul>
+          </aside>
+        </div>
+      )
+    }
 
     {
       cover && (
@@ -53,6 +119,22 @@ const related = (await getCollection('articles'))
         <Content />
       </div>
     </div>
+
+    {
+      faq.length > 0 && (
+        <div class="container narrow">
+          <section class="faq" aria-label="שאלות נפוצות">
+            <h2>שאלות נפוצות</h2>
+            {faq.map((f) => (
+              <details class="faq-item">
+                <summary>{f.question}</summary>
+                <p>{f.answer}</p>
+              </details>
+            ))}
+          </section>
+        </div>
+      )
+    }
   </article>
 
   {
@@ -74,6 +156,73 @@ const related = (await getCollection('articles'))
 <style>
   .narrow {
     max-width: 760px;
+  }
+
+  /* TL;DR / key takeaways (GEO-friendly) */
+  .tldr {
+    background: var(--surface);
+    border-inline-start: 4px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin: 26px 0 4px;
+  }
+  .tldr h2 {
+    font-size: 1.1rem;
+    margin: 0 0 10px;
+    color: var(--accent);
+  }
+  .tldr ul {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    font-family: var(--font);
+  }
+  .tldr li {
+    margin-bottom: 7px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* FAQ */
+  .faq {
+    margin-top: 40px;
+    padding-top: 26px;
+    border-top: 2px solid var(--line);
+  }
+  .faq > h2 {
+    font-size: 1.7rem;
+    margin-bottom: 14px;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 6px 0;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 1.08rem;
+    padding: 12px 0;
+    color: var(--ink);
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary::before {
+    content: '+';
+    color: var(--accent);
+    font-weight: 800;
+    margin-inline-end: 10px;
+  }
+  .faq-item[open] summary::before {
+    content: '–';
+  }
+  .faq-item p {
+    font-family: var(--font);
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin: 0 0 14px;
+    padding-inline-start: 22px;
   }
   .post {
     padding-top: 40px;

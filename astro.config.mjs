@@ -1,8 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // עדכן את זה לכתובת הסופית של האתר אחרי חיבור הדומיין
   site: 'https://autotimesisrael.com',
+  integrations: [sitemap()],
 });
