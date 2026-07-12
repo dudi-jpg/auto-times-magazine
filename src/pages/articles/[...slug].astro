@@ -246,8 +246,11 @@ const jsonLd = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [
   }
   .hero-figure :global(img) {
     width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
+    display: block;
   }
   .hero-figure figcaption {
     font-size: 0.85rem;
@@ -286,8 +289,48 @@ const jsonLd = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [
     margin-bottom: 0.5em;
   }
   .prose :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: var(--radius);
-    margin: 1.6em 0;
+    border: 1px solid var(--line);
+    margin: 1.8em 0 0.6em;
+  }
+
+  /* ===== real bordered tables ===== */
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.8em 0;
+    font-family: var(--font);
+    font-size: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .prose :global(thead) {
+    background: var(--navy);
+  }
+  .prose :global(th) {
+    color: #fff;
+    font-weight: 700;
+    text-align: right;
+    padding: 13px 16px;
+    border: 1px solid var(--navy-soft);
+  }
+  .prose :global(td) {
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    text-align: right;
+    vertical-align: top;
+  }
+  .prose :global(tbody tr:nth-child(even)) {
+    background: var(--surface);
+  }
+  .prose :global(tbody tr:hover) {
+    background: #eef2f7;
   }
   .prose :global(blockquote) {
     margin: 1.6em 0;

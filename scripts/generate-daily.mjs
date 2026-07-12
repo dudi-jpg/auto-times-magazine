@@ -65,7 +65,15 @@ function uniqueSlug(base) {
 const yq = (s) => `'${String(s ?? '').replace(/\r?\n/g, ' ').replace(/'/g, "''").trim()}'`;
 
 // ---------- Wikimedia Commons image fetch ----------
-async function fetchImage(query, destPath) {
+// significant english tokens (brand/model words) from a query, for relevance matching
+function sigTokens(query) {
+  const stop = new Set(['the', 'and', 'car', 'auto', 'new', 'with', 'for', 'ev', 'suv']);
+  return (query.toLowerCase().match(/[a-z0-9]{3,}/g) || []).filter((w) => !stop.has(w));
+}
+
+// matchTokens: if provided, the Commons file title must contain at least one — keeps a
+// "Toyota Corolla" query from returning an unrelated car.
+async function fetchImage(query, destPath, matchTokens = null) {
   const api =
     'https://commons.wikimedia.org/w/api.php?' +
     new URLSearchParams({
@@ -74,7 +82,7 @@ async function fetchImage(query, destPath) {
       generator: 'search',
       gsrsearch: `filetype:bitmap ${query}`,
       gsrnamespace: '6',
-      gsrlimit: '15',
+      gsrlimit: '20',
       prop: 'imageinfo',
       iiprop: 'url|size|mime',
       iiurlwidth: '1600',
@@ -90,6 +98,10 @@ async function fetchImage(query, destPath) {
       if (!ii) continue;
       if (!['image/jpeg', 'image/png'].includes(ii.mime)) continue;
       if ((ii.width || 0) < 1000 || (ii.width || 0) <= (ii.height || 1)) continue; // landscape, decent
+      if (matchTokens && matchTokens.length) {
+        const title = (p.title || '').toLowerCase();
+        if (!matchTokens.some((t) => title.includes(t))) continue; // relevance gate
+      }
       const url = ii.thumburl || ii.url;
       const imgRes = await fetch(url, { headers: { 'User-Agent': UA } });
       if (!imgRes.ok) continue;
@@ -119,10 +131,18 @@ const POOL_THEMES = {
   'טיפים': ['garage', 'rain', 'interior', 'sedan'],
 };
 
-// resolve a cover: specific query → generic queries → copy from the local pool
+// resolve a cover: exact model (brand-matched) → brand only → generic → local pool
 async function resolveCover(query, category, dest) {
-  const tries = [query, ...(FALLBACK_QUERIES[category] || [])].filter(Boolean);
-  for (const q of tries) {
+  const tokens = sigTokens(query);
+  // 1) exact query, require the file to actually reference the model/brand
+  if (tokens.length && (await fetchImage(query, dest, tokens))) return true;
+  // 2) brand only (first 1-2 significant tokens), still relevance-gated
+  if (tokens.length) {
+    const brand = tokens.slice(0, 2).join(' ');
+    if (await fetchImage(brand, dest, tokens.slice(0, 2))) return true;
+  }
+  // 3) generic category queries (no relevance gate — themed but not model-specific)
+  for (const q of FALLBACK_QUERIES[category] || []) {
     if (await fetchImage(q, dest)) return true;
   }
   // last resort: copy a themed image from the existing pool
@@ -169,7 +189,7 @@ const ARTICLE_SCHEMA = {
         properties: { question: { type: 'string' }, answer: { type: 'string' } },
       },
     },
-    coverImageQuery: { type: 'string', description: 'ביטוי חיפוש באנגלית לתמונת נושא (למשל שם דגם הרכב)' },
+    coverImageQuery: { type: 'string', description: 'שם היצרן והדגם באנגלית לחיפוש תמונת נושא אמיתית, למשל "Toyota Corolla" או "Tesla Model 3". אם הכתבה אינה על דגם ספציפי — תיאור סצנה כללי באנגלית (למשל "electric car charging station").' },
     coverAlt: { type: 'string', description: 'תיאור תמונת הנושא בעברית' },
     slugHint: { type: 'string', description: 'סלאג באנגלית, מילים מופרדות במקף' },
     author: { type: 'string' },
@@ -179,8 +199,11 @@ const ARTICLE_SCHEMA = {
 const SYSTEM = `אתה עורך וכתב רכב בכיר ומקצועי במגזין "אוטו טיימס ישראל". אתה כותב עברית תקנית, זורמת ומקצועית ברמת מגזין רכב מוביל.
 
 עקרונות כתיבה:
-- כתוב בעברית בלבד, בגובה העיניים, מדויק ולא מנופח. אל תמציא מחירים/נתונים ספציפיים כעובדות ודאיות — נסח נתונים כטווחים/הערכות כלליות.
+- כתוב בעברית תקנית, זורמת ומדויקת, בגובה העיניים ולא מנופחת. אל תמציא מחירים/נתונים ספציפיים כעובדות ודאיות — נסח נתונים כטווחים/הערכות כלליות.
+- **עברית נקייה בכל הטקסט (קריטי):** כתוב כל מילה עברית באותיות עבריות בלבד. **לעולם אל תמזג אותיות לטיניות בתוך מילה עברית** (אסור לחלוטין: "מולטimedia", "היbרид" וכו' — כתוב "מולטימדיה", "היברид"). בכותרות ובכותרות המשנה אל תשלב ראשי-תיבות/מילים באנגלית כלל (כתוב "היברид נטען" לא "PHEV", "רכב חשמלי" לא "EV"). בגוף הטקסט, אם הכרחי מונח לועזי — כתוב אותו בתעתיק עברי מלא, או כמילה לטינית שלמה ונפרדת (לא מודבקת לעברית). בדוק שכל מילה תקינה.
+- הכותרת קצרה, קולעת ותקנית דקדוקית. בדוק שהיא נקראת חלק בעברית.
 - מבנה: פסקת פתיחה שעונה ישירות על השאלה המרכזית, ואז כותרות משנה (##) הגיוניות, לעיתים ### תת-כותרות.
+- העדף לכתוב על דגמים/יצרנים מוכרים (טויוטה, יונדאי, קיה, טסלה, מאזדה, סקודה, BMW, מרצדס וכו') כשמתאים — כדי שניתן יהיה למצוא להם תמונות אמיתיות.
 
 SEO best practices:
 - הכותרת עד ~60 תווים וכוללת את מילת המפתח המרכזית.
@@ -262,7 +285,7 @@ async function main() {
       const q = ph[1].trim();
       const file = path.join(IMG_DIR, `${slug}-${idx}.jpg`);
       let replacement = '';
-      if (await fetchImage(q, file)) {
+      if (await fetchImage(q, file, sigTokens(q))) {
         replacement = `![${q}](../../assets/auto/${slug}-${idx}.jpg)`;
         console.log(`  ✓ inline image: ${q}`);
       }
