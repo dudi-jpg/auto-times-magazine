@@ -246,6 +246,7 @@ const jsonLd = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [
   }
   .hero-figure :global(img) {
     width: 100%;
+    height: auto; /* neutralize the height attribute so aspect-ratio governs */
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: var(--radius);
@@ -291,6 +292,7 @@ const jsonLd = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [
   .prose :global(img) {
     display: block;
     width: 100%;
+    height: auto; /* neutralize the height attribute so aspect-ratio governs */
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: var(--radius);
