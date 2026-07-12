@@ -105,9 +105,9 @@ const jsonLd = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [
 
     {
       cover && (
-        <div class="container">
+        <div class="container narrow">
           <figure class="hero-figure">
-            <Image src={cover} alt={coverAlt} widths={[600, 1200, 1600]} sizes="(max-width: 1100px) 100vw, 1100px" />
+            <Image src={cover} alt={coverAlt} widths={[600, 800, 1200]} sizes="(max-width: 800px) 100vw, 760px" />
             {coverAlt && <figcaption class="muted">{coverAlt}</figcaption>}
           </figure>
         </div>
