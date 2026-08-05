@@ -19,9 +19,13 @@ const articles = defineCollection({
       focusKeyword: z.string().optional(), // מילת מפתח מרכזית
       keywords: z.array(z.string()).default([]), // מילות מפתח ל-meta keywords ול-schema
       keyTakeaways: z.array(z.string()).default([]), // תקציר נקודות (TL;DR) — מצוין ל-GEO
-      faq: z
-        .array(z.object({ question: z.string(), answer: z.string() }))
-        .default([]), // שאלות ותשובות — נכנס גם ל-FAQ schema
+      // שאלות ותשובות — נכנס גם ל-FAQ schema.
+      // preprocess ממיר faq ריק/null (הגנרטור לפעמים משאיר אותו null) למערך ריק,
+      // כדי ש-null לא יפיל את כל הבנייה ב-Cloudflare (‎.default תופס רק undefined).
+      faq: z.preprocess(
+        (v) => v ?? [],
+        z.array(z.object({ question: z.string(), answer: z.string() })),
+      ),
     }),
 });
 
